@@ -1,0 +1,21 @@
+{
+  "name": "tmsecomix.com",
+  "version": "1.0.0",
+  "description": "tmse comix devstack",
+  "main": "main.js",
+  "dependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.26.0",
+    "cssnano": "^4.1.4",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sass": "^4.0.1",
+    "run-sequence": "^2.2.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jiri Prihoda",
+  "license": "MIT"
+}
