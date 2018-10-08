@@ -1,5 +1,16 @@
 @import "variables.scss";
-// css reset
+
+.main {
+  display: flex;
+}
+.comicstrip {
+  display: flex;
+  flex: 70%;
+}
+.sidebar {
+  display: flex;
+  flex: 30%;
+}
 h1 {
   color: red;
 }
