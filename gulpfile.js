@@ -14,15 +14,28 @@ var gulp          = require('gulp'),
 
 
 // Default task
-gulp.task('default', function(){
-    runSequence('clean', 'copy', function() {
-        runSequence(config.tasks.default)
-    })
+
+
+// Static Server + watching scss/html files
+gulp.task('serve', ['sass'], function() {
+
+    browserSync.init({
+        server: {
+            baseDir: "./"
+        }
+    });
+
+    gulp.watch("scss/*.scss", ['sass']);
+    gulp.watch("*.html").on('change', browserSync.reload);
 });
 
-gulp.task('prepare', function(){
-  runSequence('clean', 'copy', function() {
-    runSequence("styles")
-  })
+// Compile sass into CSS & auto-inject into browsers
+gulp.task('sass', function() {
+    return gulp.src("scss/main.scss")
+        .pipe(sass())
+        .pipe(gulp.dest("css"))
+        .pipe(browserSync.stream());
 });
 
+//default task
+gulp.task('default', ['serve']);
