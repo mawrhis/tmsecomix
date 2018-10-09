@@ -1,0 +1,18 @@
+{
+  "data": [{
+      "id": "1",
+      "src": "",
+      "tag":["square","circle"]
+    },
+    {
+      "id": "2",
+      "src": "",
+      "tag":["square","triangle"]
+    },
+    {
+      "id": "3",
+      "src": "",
+      "tag":["circle","hexagon", "square"]
+    }
+  ]
+}
