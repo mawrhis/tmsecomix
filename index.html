@@ -2,25 +2,16 @@
 <html>
 <head>
   <title>tmsecomix.com</title>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
   <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
-<body>
-<h1>TMSE</h1>
-<main class="main">
-<div class="comicstrip" v-for="data in $options.myJson">{{data}}</div>>
-  <div class="comicstrip__image"><img src="images/image-grey.png"></div>
-  <div class="comicstrip__favorite"></div>
+<div>
+<div id="app">
+  <comicpage></comicpage>
 </div>
-<div class="sidebar">
-  <div class="sidebar__navigation navigation">
-    <button class="navigation__next">next</button>
-    <button class="navigation__previous">prev</button>
-    <button class="navigation__random">rand</button>
-    <button class="navigation__favourite">fav</button>
-  </div>
-</div>
-</main>
 
 </body>
+  <footer>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="main.js"></script>
+  </footer>
 </html>
