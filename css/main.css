@@ -9,6 +9,9 @@
   display: flex;
   flex: 30%; }
 
+.comicstrip__image img {
+  width: 200px; }
+
 h1 {
   color: red; }
 

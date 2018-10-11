@@ -6,7 +6,19 @@
 </head>
 <div>
 <div id="app">
-  <comicpage></comicpage>
+{{ currentId }}
+  {{ currentPost }}
+  <div class="comicpage">
+    <h1>{{ heading }}</h1>
+    <main class="main">
+  <comicstrip v-for="post in posts"
+              v-bind:key="post.id"
+              v-bind:title="post.title"
+              v-bind:src="post.src"></comicstrip>
+  <sidebar></sidebar>
+
+  </main>
+</div>
 </div>
 
 </body>
