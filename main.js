@@ -11,22 +11,36 @@
 var trial = "jsem tu"
 console.log(trial)
 
-Vue.component('sidebar', {
-  props: {
-  },
+// Vue.component('sidebar', {
+//   props: {
+//     currentId: Number
+//   },
+//
+//   // data() {
+//   //   return {
+//   //     currentIdUpdated: ""
+//   //   }
+//   // },
+//
+//   template:`
+//            `,
+//   methods: {
+//
+//
+//     // increaseId (event) {
+//     //   this.$emit('increaseId', 'currentIdUpdated')
+//     //   console.log(currentId)
+//     // },
+//     //
+//     // fetchPost: function(currentId) {
+//     //     this.posts.find(post => {
+//     //     return this.currentPost === currentId
+//     //     })
+//     //   }
+//     }
+// })
 
-  template:`
-            <div class="sidebar">
-              <div class="sidebar__navigation navigation">
-                <button class="navigation__next" v-on:click="currentId++">next</button>
-                <button class="navigation__previous" v-on:click="fetchPost(currentId)">prev</button>
-                <button class="navigation__random" v-on:click="currentId = Math.ceil(Math.random()*10)">rand</button>
-                <button class="navigation__favourite">fav</button>
-              </div>
-            </div>`
-})
-
-Vue.component('comicstrip', {
+Vue.component('post', {
     props: {
       id: Number,
       title: String,
@@ -56,38 +70,61 @@ var app = new Vue({
     el: '#app',
     data: {
       heading: 'TMSE',
-      currentId:'3',
-      currentPost: {},
+      currentId: 1,
       posts: [{
-        'id': '1',
-        'title':'title-1',
+        'id': 3,
+        'title':'first post',
         'src': 'images/image-grey.png',
         'tag':["square","circle"]
-      },
+        },
         {
-          'id': '2',
-          'title':'title-2',
+          'id': 2,
+          'title':'second post',
           'src': 'images/image-beige.jpg',
           'tag':["square","triangle"]
         },
         {
-          'id': '3',
-          'title':'title-3',
+          'id': 1,
+          'title':'third post',
           'src': 'images/image-green.jpg',
           'tag':["circle","hexagon", "square"]
         }
       ]
     },
-    methods: {
-        fetchPost: function(currentId) {
-        this.posts.find(post => {
-          return this.currentPost === currentId
+    computed: {
+      first () { return this.posts.slice(0, 1) },
+
+      currentpost () {
+        return this.posts.find(post => {
+          return post.id === this.currentId
         })
       }
     },
-    mounted: function () {
-      fetchPost()
+    methods: {
+
+      increaseId: function() {
+        if (this.currentId < this.posts.length){
+            this.currentId += 1}
+        else {
+          console.log("no newer comics")
+          // add class deactivated to button
+        }
+      },
+
+      decreaseId: function() {
+        if (this.currentId > 1){
+          this.currentId -= 1
+        } else if (this.currentId = 1 ){
+          console.log("no older comics")
+          // add class deactivated to button
+        }
+      },
+
+    },
+
+    mounted () {
     }
 })
 
 
+// predavaji se data z child do parent componenty?
