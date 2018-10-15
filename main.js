@@ -11,34 +11,42 @@
 var trial = "jsem tu"
 console.log(trial)
 
-// Vue.component('sidebar', {
-//   props: {
-//     currentId: Number
-//   },
-//
-//   // data() {
-//   //   return {
-//   //     currentIdUpdated: ""
-//   //   }
-//   // },
-//
-//   template:`
-//            `,
-//   methods: {
-//
-//
-//     // increaseId (event) {
-//     //   this.$emit('increaseId', 'currentIdUpdated')
-//     //   console.log(currentId)
-//     // },
-//     //
-//     // fetchPost: function(currentId) {
-//     //     this.posts.find(post => {
-//     //     return this.currentPost === currentId
-//     //     })
-//     //   }
-//     }
-// })
+Vue.component('sidebar', {
+  props: {
+    currentId: Number
+  },
+
+  data() {
+    return {
+      currentIdUpdated: ""
+    }
+  },
+
+  template:`
+       <div class="sidebar">
+        <div class="sidebar__navigation navigation">
+          <button class="navigation__next" @click="$emit('increase')" >next</button>
+          <button class="navigation__previous" @click="$emit('decrease')" >prev</button>
+          <button class="navigation__random" >rand</button>
+          <button class="navigation__favourite">fav</button>
+        </div>
+      </div>
+           `,
+  methods: {
+
+
+    // increaseId (event) {
+    //   this.$emit('increaseId', 'currentIdUpdated')
+    //   console.log(currentId)
+    // },
+    //
+    // fetchPost: function(currentId) {
+    //     this.posts.find(post => {
+    //     return this.currentPost === currentId
+    //     })
+    //   }
+    }
+})
 
 Vue.component('post', {
     props: {
@@ -71,6 +79,7 @@ var app = new Vue({
     data: {
       heading: 'TMSE',
       currentId: 1,
+      testVar: false,
       posts: [{
         'id': 3,
         'title':'first post',
@@ -127,4 +136,6 @@ var app = new Vue({
 })
 
 
-// predavaji se data z child do parent componenty?
+
+//event bus
+//axios - komunikace s api

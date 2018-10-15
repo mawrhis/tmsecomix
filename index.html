@@ -15,14 +15,7 @@
               v-bind:tag="currentpost.tag"
               v-bind:title="currentpost.title"
               v-bind:src="currentpost.src"></post>
-      <div class="sidebar">
-        <div class="sidebar__navigation navigation">
-          <button class="navigation__next" v-on:click="increaseId">next</button>
-          <button class="navigation__previous" v-on:click="decreaseId">prev</button>
-          <button class="navigation__random" >rand</button>
-          <button class="navigation__favourite">fav</button>
-        </div>
-      </div>
+      <sidebar @increase="increaseId" @decrease="decreaseId"></sidebar>
 
   </main>
 </div>
