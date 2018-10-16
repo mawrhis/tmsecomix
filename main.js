@@ -7,6 +7,7 @@
 // button prev - go to prev comic (prev array value)
 // button rand - go to random array value
 // button fav - show page with my favorite comics
+// reflect selected comic with anchor tag in adress comix.com#1
 
 var trial = "jsem tu"
 console.log(trial)
