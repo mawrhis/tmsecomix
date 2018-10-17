@@ -10,12 +10,16 @@
     <h1>{{ heading }}</h1>
     <main class="main">
   <post
-              :key="currentpost.id"
-              v-bind:id="currentpost.id"
-              v-bind:tag="currentpost.tag"
-              v-bind:title="currentpost.title"
-              v-bind:src="currentpost.src"></post>
-      <sidebar @increase="increaseId" @decrease="decreaseId"></sidebar>
+      :key="currentpost.id"
+      v-bind:id="currentpost.id"
+      v-bind:tag="currentpost.tag"
+      v-bind:title="currentpost.title"
+      v-bind:src="currentpost.src"
+  ></post>
+  <sidebar
+      v-bind:id="currentpost.id"
+      v-bind:posts="posts"
+  ></sidebar>
 
   </main>
 </div>

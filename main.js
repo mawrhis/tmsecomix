@@ -9,12 +9,13 @@
 // button fav - show page with my favorite comics
 // reflect selected comic with anchor tag in adress comix.com#1
 
-var trial = "jsem tu"
-console.log(trial)
+window.Event = new Vue(); // event bus
 
 Vue.component('sidebar', {
   props: {
-    currentId: Number
+    id: Number,
+    posts: Array
+
   },
 
   data() {
@@ -26,26 +27,36 @@ Vue.component('sidebar', {
   template:`
        <div class="sidebar">
         <div class="sidebar__navigation navigation">
-          <button class="navigation__next" @click="$emit('increase')" >next</button>
-          <button class="navigation__previous" @click="$emit('decrease')" >prev</button>
+          <button class="navigation__next" @click="increaseId" >next</button>
+          <button class="navigation__previous" @click="decreaseId">prev</button>
           <button class="navigation__random" >rand</button>
           <button class="navigation__favourite">fav</button>
         </div>
       </div>
            `,
   methods: {
+      increaseId: function() {
+        if (this.id < this.posts.length){
+            Event.$emit('prev')
+        }else {
+          console.log("no newer comics")
+          Event.$emit('start');// add class deactivated to button
+        }
+      },
 
+      decreaseId: function() {
+        if (this.id > 1){
+          Event.$emit('next')
+        } else if (this.currentId = 1 ){
+          console.log("no older comics")
+          Event.$emit('end');// add class deactivated to button
+        }
+      },
+    },
 
-    // increaseId (event) {
-    //   this.$emit('increaseId', 'currentIdUpdated')
-    //   console.log(currentId)
-    // },
-    //
-    // fetchPost: function(currentId) {
-    //     this.posts.find(post => {
-    //     return this.currentPost === currentId
-    //     })
-    //   }
+    created() {
+      Event.$on('end', () => console.log("write disabled class"))
+      Event.$on('start', () => console.log("write disabled class"))
     }
 })
 
@@ -72,6 +83,10 @@ Vue.component('post', {
 
     methods: {
 
+    },
+
+    created () {
+      Event
     }
 })
 
@@ -112,27 +127,16 @@ var app = new Vue({
     },
     methods: {
 
-      increaseId: function() {
-        if (this.currentId < this.posts.length){
-            this.currentId += 1}
-        else {
-          console.log("no newer comics")
-          // add class deactivated to button
-        }
-      },
 
-      decreaseId: function() {
-        if (this.currentId > 1){
-          this.currentId -= 1
-        } else if (this.currentId = 1 ){
-          console.log("no older comics")
-          // add class deactivated to button
-        }
-      },
 
     },
 
-    mounted () {
+    created () {
+      Event.$on('next', () =>
+        this.currentId -= 1);
+
+      Event.$on('prev', () =>
+        this.currentId += 1)
     }
 })
 
@@ -140,3 +144,5 @@ var app = new Vue({
 
 //event bus
 //axios - komunikace s api
+// multiple file app
+//import export etc...
