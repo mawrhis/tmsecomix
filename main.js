@@ -17,14 +17,14 @@ Vue.component('sidebar', {
   props: {
     currentId: Number,
     posts: Array,
-    end: false,
-    start: false,
 
   },
 
   data() {
     return {
       currentIdUpdated: "",
+      end: false,
+      start: false,
     }
   },
 
@@ -43,10 +43,12 @@ Vue.component('sidebar', {
       // on button click, emit the click
       prevId: function() {
           Event.$emit('prev');
+          this.start = false;
       },
 
       nextId: function() {
           Event.$emit('next');
+          this.end = false;
       },
     },
 
@@ -88,8 +90,6 @@ var app = new Vue({
     data: {
       heading: 'TMSE',
       currentId: 1,
-      end: false,
-      start: false,
       testVar: false,
       posts: [{
         'id': 3,
