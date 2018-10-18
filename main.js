@@ -11,6 +11,8 @@
 
 window.Event = new Vue(); // event bus
 
+
+// component sidebar
 Vue.component('sidebar', {
   props: {
     currentId: Number,
@@ -37,26 +39,28 @@ Vue.component('sidebar', {
       </div>
            `,
   methods: {
+
+      // on button click, emit the click
       prevId: function() {
-        if (this.currentId < this.posts.length ){
-            Event.$emit('prev');
-        }
+          Event.$emit('prev');
       },
 
       nextId: function() {
-        if (this.currentId >= 1){
           Event.$emit('next');
-        }
       },
     },
 
     created() {
+
+      // when created listen to end and start, if received set state accordingly
       Event.$on('end', () => this.end = true)
       Event.$on('start', () => this.start = true)
 
     }
 })
 
+
+// component post
 Vue.component('post', {
     props: {
       currentId: Number,
@@ -77,6 +81,8 @@ Vue.component('post', {
     }
 })
 
+
+// vue app
 var app = new Vue({
     el: '#app',
     data: {
@@ -115,33 +121,32 @@ var app = new Vue({
         })
       },
 
+
+    },
+
+    methods: {
       next() {
-        if (this.currentId === this.posts.length) {
-          console.log("no newer comics");
-          Event.$emit('start');// add class deactivated to button
+          if (this.currentId === this.posts.length) {
+              Event.$emit('start');// add class deactivated to button
+          } else {
+            this.currentId += 1;
+          }
+      },
+
+      prev() {
+        if (this.currentId === 1) {
+          console.log("no older comics");
+          Event.$emit('end');// add class deactivated to button
         } else {
-          this.currentId += 1;
+          this.currentId -= 1;
         }
       }
     },
 
-    methods: {
-      // statecheck: function() {
-      //   if (this.currentId === 1) {
-      //     console.log("no older comics")
-      //     Event.$emit('end');// add class deactivated to button
-      //   } else if (this.currentId === this.posts.length){
-      //     console.log("no newer comics")
-      //     Event.$emit('start');// add class deactivated to button
-      //   }
-      // }
-    },
-
     created () {
-      Event.$on('next', next());
+      Event.$on('next', () => this.next() );
 
-      Event.$on('prev', () =>
-        this.currentId -= 1);
+      Event.$on('prev', () => this.prev() );
 
     }
 })
