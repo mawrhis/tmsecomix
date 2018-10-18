@@ -11,14 +11,16 @@
     <main class="main">
   <post
       :key="currentpost.id"
-      v-bind:id="currentpost.id"
+      v-bind:current-id="currentpost.id"
       v-bind:tag="currentpost.tag"
       v-bind:title="currentpost.title"
       v-bind:src="currentpost.src"
   ></post>
   <sidebar
-      v-bind:id="currentpost.id"
+      v-bind:current-id="currentpost.id"
       v-bind:posts="posts"
+      v-bind:end="end"
+      v-bind:start="start"
   ></sidebar>
 
   </main>
