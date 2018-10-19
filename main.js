@@ -126,7 +126,8 @@ var app = new Vue({
 
     methods: {
       next() {
-          if (this.currentId === this.posts.length) {
+          if (this.currentId === this.posts.length - 1) {
+              this.currentId += 1;
               Event.$emit('start');// add class deactivated to button
           } else {
             this.currentId += 1;
@@ -134,8 +135,9 @@ var app = new Vue({
       },
 
       prev() {
-        if (this.currentId === 1) {
+        if (this.currentId === 2) {
           console.log("no older comics");
+          this.currentId -= 1;
           Event.$emit('end');// add class deactivated to button
         } else {
           this.currentId -= 1;
