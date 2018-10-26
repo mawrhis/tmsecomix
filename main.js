@@ -88,6 +88,7 @@ Vue.component('post', {
 var app = new Vue({
     el: '#app',
     data: {
+      dataURL: 'http://jirkaprihoda.cz/tmsedata.json',
       heading: 'TMSE',
       currentId: 1,
       testVar: false,
@@ -142,6 +143,10 @@ var app = new Vue({
         } else {
           this.currentId -= 1;
         }
+      },
+
+      fetchData: function () {
+        axios.get(this.dataUrl).then(response => console.log(response))
       }
     },
 
@@ -149,6 +154,7 @@ var app = new Vue({
       Event.$on('next', () => this.next() );
 
       Event.$on('prev', () => this.prev() );
+      this.fetchData();
 
     }
 })
