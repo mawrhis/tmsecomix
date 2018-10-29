@@ -143,18 +143,18 @@ var app = new Vue({
         } else {
           this.currentId -= 1;
         }
-      },
-
-      fetchData: function () {
-        axios.get(this.dataUrl).then(response => console.log(response))
       }
+
+      // fetchData: function () {
+      //   axios.get(this.dataUrl).then(response => console.log(response))
+      // }
     },
 
     created () {
       Event.$on('next', () => this.next() );
 
       Event.$on('prev', () => this.prev() );
-      this.fetchData();
+      // this.fetchData();
 
     }
 })
