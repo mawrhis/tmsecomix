@@ -1,10 +1,11 @@
 
 
 // TODO
-// have everything in one file - included data, later separate it to more files
+// implement state management - https://vuejs.org/v2/guide/state-management.html#Simple-State-Management-from-Scratch
+
 // import json into variable?, read comic data from it
-// button next -  go to next comic (next array value)
-// button prev - go to prev comic (prev array value)
+//  //button next -  go to next comic (next array value)
+//  //button prev - go to prev comic (prev array value)
 // button rand - go to random array value
 // button fav - show page with my favorite comics
 // reflect selected comic with anchor tag in adress comix.com#1
@@ -22,6 +23,7 @@ Vue.component('sidebar', {
 
   data() {
     return {
+      sharedState: store.state,
       currentIdUpdated: "",
       end: false,
       start: false,
@@ -64,6 +66,11 @@ Vue.component('sidebar', {
 
 // component post
 Vue.component('post', {
+    data() {
+      return {
+        sharedState: store.state
+      }
+    },
     props: {
       currentId: Number,
       title: String,
@@ -83,14 +90,29 @@ Vue.component('post', {
     }
 })
 
+// store - state management
+var store = {
+  debug: true,
+  state: {
+    defaultId: 3,
+    currentId: ''
+  },
+
+  setIdAction (newId) {
+    if (this.debug) console.log ('setIdAction triggered with', newId )
+    this.state.currentId = newId
+  }
+}
 
 // vue app
 var app = new Vue({
     el: '#app',
     data: {
+      sharedState: store.state,
+      startingId: 3,
       dataURL: 'http://jirkaprihoda.cz/tmsedata.json',
       heading: 'TMSE',
-      currentId: 1,
+      currentId: store.state.currentId,
       testVar: false,
       posts: [{
         'id': 3,
@@ -127,34 +149,48 @@ var app = new Vue({
 
     methods: {
       next() {
-          if (this.currentId === this.posts.length - 1) {
-              this.currentId += 1;
+          let Id = this.currentId
+          console.log('current id is', Id)
+          if (Id === this.posts.length - 1) {
+              Id += 1;
+              console.log('now id is', Id);
+              store.setIdAction(Id);
               Event.$emit('start');// add class deactivated to button
           } else {
-            this.currentId += 1;
+            Id += 1;
+            store.setIdAction(Id);
+            console.log('else', Id);
           }
       },
 
       prev() {
-        if (this.currentId === 2) {
+        let Id = this.currentId
+        if (Id === 2) {
           console.log("no older comics");
-          this.currentId -= 1;
+          Id -= 1;
+          store.setIdAction(Id);
           Event.$emit('end');// add class deactivated to button
         } else {
-          this.currentId -= 1;
+          Id -= 1;
+          store.setIdAction(Id);
         }
-      },
-
-      fetchData: function () {
-        axios.get(this.dataUrl).then(response => console.log(response))
       }
+
+      // fetchData: function () {
+      //   axios.get(this.dataUrl).then(response => console.log(response))
+      // }
     },
 
-    created () {
+  beforeCreate () {
+    store.setIdAction(3)
+    console.log('i fetched the id')
+  },
+
+  created () {
       Event.$on('next', () => this.next() );
 
       Event.$on('prev', () => this.prev() );
-      this.fetchData();
+      // this.fetchData();
 
     }
 })
