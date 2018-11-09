@@ -10,6 +10,10 @@
 // button fav - show page with my favorite comics
 // reflect selected comic with anchor tag in adress comix.com#1
 
+// when webpack is finished?
+// import VueRouter from 'vue-router'
+// import Vuex from 'vuex'
+
 window.Event = new Vue(); // event bus
 
 
@@ -94,8 +98,7 @@ Vue.component('post', {
 var store = {
   debug: true,
   state: {
-    defaultId: 3,
-    currentId: ''
+    currentId: 3
   },
 
   setIdAction (newId) {
@@ -164,13 +167,15 @@ var app = new Vue({
       },
 
       prev() {
-        let Id = this.currentId
-        if (Id === 2) {
-          console.log("no older comics");
+        if (currentId === 2) {
+          let Id = this.currentId
+          console.log("no older comics", Id);
           Id -= 1;
           store.setIdAction(Id);
           Event.$emit('end');// add class deactivated to button
         } else {
+          let Id = this.currentId
+          console.log("there are comics", Id);
           Id -= 1;
           store.setIdAction(Id);
         }
