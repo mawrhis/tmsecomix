@@ -1,5 +1,3 @@
-
-
 // TODO
 // have everything in one file - included data, later separate it to more files
 // import json into variable?, read comic data from it
